@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Votación CATIE</title>
 
 <style>
@@ -14,18 +13,19 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ===== FONDO ===== */
+/* ===== FONDO (NO SE MUEVE) ===== */
 body {
-    background: url("Background.png") no-repeat center center;
+    background: url("background.png") no-repeat center bottom;
     background-size: cover;
     background-color: #f7f2de;
     position: relative;
+    overflow: hidden;
 }
 
 /* ===== CONTADOR ===== */
 #contador {
     position: absolute;
-    bottom: 150px;
+    bottom: 110px;
     left: 40px;
     background: #0a4ea1;
     color: #ffd200;
@@ -36,11 +36,11 @@ body {
     z-index: 10;
 }
 
-/* ===== CONTENEDOR DE VOTOS ===== */
+/* ===== CONTENEDOR DE VOTOS (MISMA POSICIÓN) ===== */
 .votacion {
     position: absolute;
-    left: 20%;
-    top: 24%;
+    left: 360px;   /* NO CAMBIA */
+    top: 260px;    /* NO CAMBIA */
     width: 420px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -48,12 +48,11 @@ body {
     justify-items: center;
 }
 
-/* Tarjeta superior centrada */
 .votacion .top {
     grid-column: span 2;
 }
 
-/* ===== TARJETA AZUL ===== */
+/* ===== TARJETAS ===== */
 .vote-card {
     width: 210px;
     height: 290px;
@@ -81,7 +80,7 @@ body {
     object-fit: cover;
 }
 
-/* Texto amarillo */
+/* Texto */
 .vote-card .label {
     margin-top: 18px;
     color: #ffd200;
@@ -111,50 +110,60 @@ body {
 }
 
 /* ========================= */
-/* ===== RESPONSIVE SUAVE ==== */
+/*  RESPONSIVE REAL Y SEGURO */
 /* ========================= */
 
-/* Laptop pequeña / tablet horizontal */
+/* Laptop pequeña */
 @media (max-width: 1200px) {
-    .votacion {
-        left: 18%;
-        top: 22%;
-        transform: scale(0.92);
-        transform-origin: top left;
+    .vote-card {
+        width: 185px;
+        height: 255px;
     }
 
-    #contador {
-        bottom: 140px;
-        left: 30px;
-        font-size: 15px;
+    .vote-card .circle {
+        width: 135px;
+        height: 135px;
+    }
+
+    .vote-card .label {
+        font-size: 20px;
     }
 }
 
-/* Tablet vertical */
+/* Tablet */
 @media (max-width: 900px) {
-    .votacion {
-        left: 15%;
-        top: 20%;
-        transform: scale(0.85);
+    .vote-card {
+        width: 165px;
+        height: 230px;
     }
 
-    .acciones {
-        right: 40px;
-        bottom: 30px;
+    .vote-card .circle {
+        width: 120px;
+        height: 120px;
+    }
+
+    .vote-card .label {
+        font-size: 18px;
     }
 }
 
-/* Tablet pequeña */
+/* Tablet pequeña / móvil horizontal */
 @media (max-width: 768px) {
-    .votacion {
-        left: 12%;
-        top: 18%;
-        transform: scale(0.8);
+    .vote-card {
+        width: 145px;
+        height: 205px;
+    }
+
+    .vote-card .circle {
+        width: 110px;
+        height: 110px;
+    }
+
+    .vote-card .label {
+        font-size: 16px;
     }
 
     #contador {
-        bottom: 120px;
-        left: 20px;
         font-size: 14px;
     }
 }
@@ -167,7 +176,6 @@ body {
 
 <div class="votacion">
 
-    <!-- OPCIÓN A -->
     <div class="vote-card top" onclick="votar('A')">
         <div class="circle">
             <img src="card-blue.jpg">
@@ -175,7 +183,6 @@ body {
         <div class="label">C.A.T.I.E</div>
     </div>
 
-    <!-- OPCIÓN B -->
     <div class="vote-card" onclick="votar('B')">
         <div class="circle">
             <img src="card-blue.jpg">
@@ -183,7 +190,6 @@ body {
         <div class="label">C.A.T.I.E</div>
     </div>
 
-    <!-- OPCIÓN C -->
     <div class="vote-card" onclick="votar('C')">
         <div class="circle">
             <img src="card-blue.jpg">
@@ -214,7 +220,13 @@ function actualizar() {
 
 function descargarTXT() {
     let txt =
-        `Resultados\n\nA: ${votos.A}\nB: ${votos.B}\nC: ${votos.C}\n\nTotal: ${votos.A+votos.B+votos.C}`;
+`Resultados
+
+A: ${votos.A}
+B: ${votos.B}
+C: ${votos.C}
+
+Total: ${votos.A + votos.B + votos.C}`;
     let blob = new Blob([txt], {type:"text/plain"});
     let a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
