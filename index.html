@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Votación CATIE</title>
 
 <style>
@@ -15,17 +16,17 @@ html, body {
 
 /* ===== FONDO ===== */
 body {
-    background: url("Background.png") no-repeat center center;
+    background: url("background.png") no-repeat center center;
     background-size: cover;
     background-color: #f7f2de;
     position: relative;
 }
 
-/* ===== CONTADOR (AJUSTADO) ===== */
+/* ===== CONTADOR ===== */
 #contador {
     position: absolute;
-    bottom: 150px;   /* ⬅ bajado */
-    left: 40px;      /* ⬅ alineado a la izquierda */
+    bottom: 150px;
+    left: 40px;
     background: #0a4ea1;
     color: #ffd200;
     padding: 8px 14px;
@@ -39,12 +40,11 @@ body {
 .votacion {
     position: absolute;
     left: 20%;
-    top: 24%;   /* ⬅ antes 28%, ahora más arriba */
+    top: 24%;
     width: 420px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 40px 40px;
+    gap: 40px;
     justify-items: center;
 }
 
@@ -110,8 +110,53 @@ body {
     border-radius: 6px;
 }
 
-.acciones button:hover {
-    opacity: 0.9;
+/* ========================= */
+/* ===== RESPONSIVE SUAVE ==== */
+/* ========================= */
+
+/* Laptop pequeña / tablet horizontal */
+@media (max-width: 1200px) {
+    .votacion {
+        left: 18%;
+        top: 22%;
+        transform: scale(0.92);
+        transform-origin: top left;
+    }
+
+    #contador {
+        bottom: 140px;
+        left: 30px;
+        font-size: 15px;
+    }
+}
+
+/* Tablet vertical */
+@media (max-width: 900px) {
+    .votacion {
+        left: 15%;
+        top: 20%;
+        transform: scale(0.85);
+    }
+
+    .acciones {
+        right: 40px;
+        bottom: 30px;
+    }
+}
+
+/* Tablet pequeña */
+@media (max-width: 768px) {
+    .votacion {
+        left: 12%;
+        top: 18%;
+        transform: scale(0.8);
+    }
+
+    #contador {
+        bottom: 120px;
+        left: 20px;
+        font-size: 14px;
+    }
 }
 </style>
 </head>
@@ -125,7 +170,7 @@ body {
     <!-- OPCIÓN A -->
     <div class="vote-card top" onclick="votar('A')">
         <div class="circle">
-            <img src="card-blue.jpg">
+            <img src="opcionA.png">
         </div>
         <div class="label">C.A.T.I.E</div>
     </div>
@@ -133,7 +178,7 @@ body {
     <!-- OPCIÓN B -->
     <div class="vote-card" onclick="votar('B')">
         <div class="circle">
-            <img src="card-blue.jpg">
+            <img src="opcionB.png">
         </div>
         <div class="label">C.A.T.I.E</div>
     </div>
@@ -141,7 +186,7 @@ body {
     <!-- OPCIÓN C -->
     <div class="vote-card" onclick="votar('C')">
         <div class="circle">
-            <img src="card-blue.jpg">
+            <img src="opcionC.png">
         </div>
         <div class="label">C.A.T.I.E</div>
     </div>
